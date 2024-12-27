@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digitales Siegel</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f3f3;
+            font-family: Arial, sans-serif;
+        }
+        .seal {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #ffffff, #e0e0e0);
+            border: 10px solid #000;
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        .seal .center-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            font-weight: bold;
+            color: #008000;
+        }
+        .seal .outer-text {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #000;
+        }
+        .seal .top {
+            top: 15px;
+        }
+        .seal .bottom {
+            bottom: 15px;
+        }
+        button {
+            position: fixed;
+            bottom: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="seal-container" class="seal">
+        <div class="outer-text top">ZERTIFIZIERTE/R ONLINE-TEXTER/IN</div>
+        <div class="center-text">WORTLIGA</div>
+        <div class="outer-text bottom">PROFESSIONAL WRITING CERTIFICATION</div>
+    </div>
+    <button onclick="exportSeal()">Siegel exportieren</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.9/dist/html-to-image.min.js"></script>
+    <script>
+        function exportSeal() {
+            const sealContainer = document.getElementById('seal-container');
+            htmlToImage.toPng(sealContainer)
+                .then((dataUrl) => {
+                    const link = document.createElement('a');
+                    link.download = 'digitales-siegel.png';
+                    link.href = dataUrl;
+                    link.click();
+                })
+                .catch((error) => {
+                    console.error('Fehler beim Exportieren des Siegels:', error);
+                });
+        }
+    </script>
+</body>
+</html>
